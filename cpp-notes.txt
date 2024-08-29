@@ -1,1 +1,1 @@
-g++ -o <output_file>.exe <code>.cpp -ladvapi32
+g++ -o <output_file>.exe <code>.cpp -ladvapi32 -luser32 -lgdi32 -lshell32 -mwindows
