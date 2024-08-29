@@ -1,0 +1,4 @@
+*.exe
+bin\*
+bin/*
+test*
