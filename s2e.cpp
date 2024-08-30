@@ -17,8 +17,8 @@ NOTIFYICONDATA nid = {};
 HMENU hPopMenu;
 
 // Global constants for shake detection and cursor size adjustment
-const int SHAKE_THRESHOLD = 100;        // Minimum movement to consider as part of a shake
-const int SHAKE_COUNT_THRESHOLD = 5;    // Number of movements needed to trigger a shake
+const int SHAKE_THRESHOLD = 75;        // Minimum movement to consider as part of a shake
+const int SHAKE_COUNT_THRESHOLD = 3;    // Number of movements needed to trigger a shake
 const int width = 256;                  // Desired cursor width
 const int height = 256;                 // Desired cursor height
 
@@ -114,10 +114,14 @@ void RunEvery50ms() {
 
     // Check if movement exceeds shake threshold
     if (deltaX + deltaY > SHAKE_THRESHOLD) {
-        shakeCount++;
+
+        if (movingRight != lastMovingRight) {
+            shakeCount++;
+        }
 
         if (shakeCount >= SHAKE_COUNT_THRESHOLD) {
             if (movingRight != lastMovingRight) {
+                //-------------------------------------------------------------------
                 // Enlarge  Arrow cursor
                 HCURSOR hCursorArrow = LoadAndScaleCursor(OCR_NORMAL, width, height);
                 if (hCursorArrow == NULL) {
@@ -125,17 +129,50 @@ void RunEvery50ms() {
                     exit(1);
                 }
                 SetSystemCursor(hCursorArrow, OCR_NORMAL);
-
+                //-------------------------------------------------------------------
                 // Enlarge beam cursor
                 HCURSOR hCursorBeam = LoadAndScaleCursor(OCR_IBEAM, width, height);
                 if (hCursorBeam == NULL) {
-                    std::cerr << "Failed to create scaled cursor." << std::endl;
+                    std::cerr << "Failed to create scaled beam cursor." << std::endl;
                     exit(1);
                 }
                 SetSystemCursor(hCursorBeam, OCR_IBEAM);
+                //-------------------------------------------------------------------
+                // Enlarge "up" cursor
+                HCURSOR hCursorUp = LoadAndScaleCursor(OCR_UP, width, height);
+                if (hCursorBeam == NULL) {
+                    std::cerr << "Failed to create scaled up cursor." << std::endl;
+                    exit(1);
+                }
+                SetSystemCursor(hCursorBeam, OCR_UP);
+                //-------------------------------------------------------------------
+                // Enlarge cross cursor
+                HCURSOR hCursorCross = LoadAndScaleCursor(OCR_CROSS, width, height);
+                if (hCursorCross == NULL) {
+                    std::cerr << "Failed to create scaled cross cursor." << std::endl;
+                    exit(1);
+                }
+                SetSystemCursor(hCursorCross, OCR_CROSS);
+                //-------------------------------------------------------------------
+                // Enlarge hand cursor
+                HCURSOR hCursorHand = LoadAndScaleCursor(OCR_HAND, width, height);
+                if (hCursorCross == NULL) {
+                    std::cerr << "Failed to create scaled hand cursor." << std::endl;
+                    exit(1);
+                }
+                SetSystemCursor(hCursorHand, OCR_HAND);
+                //-------------------------------------------------------------------
+                // Enlarge wait cursor
+                HCURSOR hCursorWait = LoadAndScaleCursor(OCR_WAIT, width, height);
+                if (hCursorWait == NULL) {
+                    std::cerr << "Failed to create scaled wait cursor." << std::endl;
+                    exit(1);
+                }
+                SetSystemCursor(hCursorWait, OCR_WAIT);
+
 
                 // Sleap and reset
-                Sleep(1000);  // Wait for 1 second to prevent multiple rapid changes
+                Sleep(1500);  // Wait for 1 second to prevent multiple rapid changes
                 SystemParametersInfo(SPI_SETCURSORS, 0, NULL, 0);  // Restore original cursor
                 
                 shakeCount = 0;  // Reset shake counter
