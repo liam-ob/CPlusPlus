@@ -18,7 +18,7 @@ HMENU hPopMenu;
 
 // Global constants for shake detection and cursor size adjustment
 const int SHAKE_THRESHOLD = 75;        // Minimum movement to consider as part of a shake
-const int SHAKE_COUNT_THRESHOLD = 3;    // Number of movements needed to trigger a shake
+const int SHAKE_COUNT_THRESHOLD = 4;    // Number of movements needed to trigger a shake
 const int width = 256;                  // Desired cursor width
 const int height = 256;                 // Desired cursor height
 
@@ -99,6 +99,115 @@ HCURSOR LoadAndScaleCursor(int cursorId, int width, int height) {
     return hCursorScaled;
 }
 
+void SetCursors() {
+    //-------------------------------------------------------------------
+    // Enlarge  Arrow cursor
+    HCURSOR hCursorArrow = LoadAndScaleCursor(OCR_NORMAL, width, height);
+    if (hCursorArrow == NULL) {
+        std::cerr << "Failed to create scaled arrow cursor." << std::endl;
+        exit(1);
+    }
+    SetSystemCursor(hCursorArrow, OCR_NORMAL);
+    //-------------------------------------------------------------------
+    // Enlarge beam cursor
+    HCURSOR hCursorBeam = LoadAndScaleCursor(OCR_IBEAM, width, height);
+    if (hCursorBeam == NULL) {
+        std::cerr << "Failed to create scaled beam cursor." << std::endl;
+        exit(1);
+    }
+    SetSystemCursor(hCursorBeam, OCR_IBEAM);
+    //-------------------------------------------------------------------
+    // Enlarge "up" cursor
+    HCURSOR hCursorUp = LoadAndScaleCursor(OCR_UP, width, height);
+    if (hCursorUp == NULL) {
+        std::cerr << "Failed to create scaled up cursor." << std::endl;
+        exit(1);
+    }
+    SetSystemCursor(hCursorUp, OCR_UP);
+    //-------------------------------------------------------------------
+    // Enlarge cross cursor
+    HCURSOR hCursorCross = LoadAndScaleCursor(OCR_CROSS, width, height);
+    if (hCursorCross == NULL) {
+        std::cerr << "Failed to create scaled cross cursor." << std::endl;
+        exit(1);
+    }
+    SetSystemCursor(hCursorCross, OCR_CROSS);
+    //-------------------------------------------------------------------
+    // Enlarge hand cursor
+    HCURSOR hCursorHand = LoadAndScaleCursor(OCR_HAND, width, height);
+    if (hCursorHand == NULL) {
+        std::cerr << "Failed to create scaled hand cursor." << std::endl;
+        exit(1);
+    }
+    SetSystemCursor(hCursorHand, OCR_HAND);
+    //-------------------------------------------------------------------
+    // Enlarge wait cursor
+    HCURSOR hCursorWait = LoadAndScaleCursor(OCR_WAIT, width, height);
+    if (hCursorWait == NULL) {
+        std::cerr << "Failed to create scaled wait cursor." << std::endl;
+        exit(1);
+    }
+    SetSystemCursor(hCursorWait, OCR_WAIT);
+    //-------------------------------------------------------------------
+    // Enlarge NWSE cursor
+    HCURSOR hCursorNWSE = LoadAndScaleCursor(OCR_SIZENWSE, width, height);
+    if (hCursorNWSE == NULL) {
+        std::cerr << "Failed to create scaled NWSE cursor." << std::endl;
+        exit(1);
+    }
+    SetSystemCursor(hCursorNWSE, OCR_SIZENWSE);
+    //-------------------------------------------------------------------
+    // Enlarge NESW cursor
+    HCURSOR hCursorNESW = LoadAndScaleCursor(OCR_SIZENESW, width, height);
+    if (hCursorNESW == NULL) {
+        std::cerr << "Failed to create scaled NESW cursor." << std::endl;
+        exit(1);
+    }
+    SetSystemCursor(hCursorNESW, OCR_SIZENESW);
+    //-------------------------------------------------------------------
+    // Enlarge NS cursor
+    HCURSOR hCursorNS = LoadAndScaleCursor(OCR_SIZENS, width, height);
+    if (hCursorNS == NULL) {
+        std::cerr << "Failed to create scaled NS cursor." << std::endl;
+        exit(1);
+    }
+    SetSystemCursor(hCursorNS, OCR_SIZENS);
+    //-------------------------------------------------------------------
+    // Enlarge WE cursor
+    HCURSOR hCursorWE = LoadAndScaleCursor(OCR_SIZEWE, width, height);
+    if (hCursorWE == NULL) {
+        std::cerr << "Failed to create scaled WE cursor." << std::endl;
+        exit(1);
+    }
+    SetSystemCursor(hCursorWE, OCR_SIZEWE);
+    //-------------------------------------------------------------------
+    // Enlarge size all cursor
+    HCURSOR hCursorAll = LoadAndScaleCursor(OCR_SIZEALL, width, height);
+    if (hCursorAll == NULL) {
+        std::cerr << "Failed to create scaled size all cursor." << std::endl;
+        exit(1);
+    }
+    SetSystemCursor(hCursorAll, OCR_SIZEALL);
+    //-------------------------------------------------------------------
+    // Enlarge unavailable cursor
+    HCURSOR hCursorNo = LoadAndScaleCursor(OCR_NO, width, height);
+    if (hCursorNo == NULL) {
+        std::cerr << "Failed to create scaled unavailable cursor." << std::endl;
+        exit(1);
+    }
+    SetSystemCursor(hCursorNo, OCR_NO);
+    //-------------------------------------------------------------------
+    // Enlarge app starting cursor
+    HCURSOR hCursorAppStarting = LoadAndScaleCursor(OCR_APPSTARTING, width, height);
+    if (hCursorAppStarting == NULL) {
+        std::cerr << "Failed to create scaled app starting cursor." << std::endl;
+        exit(1);
+    }
+    SetSystemCursor(hCursorAppStarting, OCR_APPSTARTING);
+    //-------------------------------------------------------------------
+    return;
+}
+
 
 void RunEvery50ms() {
     // This function will be called every 50 milliseconds
@@ -121,58 +230,11 @@ void RunEvery50ms() {
 
         if (shakeCount >= SHAKE_COUNT_THRESHOLD) {
             if (movingRight != lastMovingRight) {
-                //-------------------------------------------------------------------
-                // Enlarge  Arrow cursor
-                HCURSOR hCursorArrow = LoadAndScaleCursor(OCR_NORMAL, width, height);
-                if (hCursorArrow == NULL) {
-                    std::cerr << "Failed to create scaled cursor." << std::endl;
-                    exit(1);
-                }
-                SetSystemCursor(hCursorArrow, OCR_NORMAL);
-                //-------------------------------------------------------------------
-                // Enlarge beam cursor
-                HCURSOR hCursorBeam = LoadAndScaleCursor(OCR_IBEAM, width, height);
-                if (hCursorBeam == NULL) {
-                    std::cerr << "Failed to create scaled beam cursor." << std::endl;
-                    exit(1);
-                }
-                SetSystemCursor(hCursorBeam, OCR_IBEAM);
-                //-------------------------------------------------------------------
-                // Enlarge "up" cursor
-                HCURSOR hCursorUp = LoadAndScaleCursor(OCR_UP, width, height);
-                if (hCursorBeam == NULL) {
-                    std::cerr << "Failed to create scaled up cursor." << std::endl;
-                    exit(1);
-                }
-                SetSystemCursor(hCursorBeam, OCR_UP);
-                //-------------------------------------------------------------------
-                // Enlarge cross cursor
-                HCURSOR hCursorCross = LoadAndScaleCursor(OCR_CROSS, width, height);
-                if (hCursorCross == NULL) {
-                    std::cerr << "Failed to create scaled cross cursor." << std::endl;
-                    exit(1);
-                }
-                SetSystemCursor(hCursorCross, OCR_CROSS);
-                //-------------------------------------------------------------------
-                // Enlarge hand cursor
-                HCURSOR hCursorHand = LoadAndScaleCursor(OCR_HAND, width, height);
-                if (hCursorCross == NULL) {
-                    std::cerr << "Failed to create scaled hand cursor." << std::endl;
-                    exit(1);
-                }
-                SetSystemCursor(hCursorHand, OCR_HAND);
-                //-------------------------------------------------------------------
-                // Enlarge wait cursor
-                HCURSOR hCursorWait = LoadAndScaleCursor(OCR_WAIT, width, height);
-                if (hCursorWait == NULL) {
-                    std::cerr << "Failed to create scaled wait cursor." << std::endl;
-                    exit(1);
-                }
-                SetSystemCursor(hCursorWait, OCR_WAIT);
-
+                // Set the new cursors
+                SetCursors();
 
                 // Sleap and reset
-                Sleep(1500);  // Wait for 1 second to prevent multiple rapid changes
+                Sleep(1750);  // Wait for 1 second to prevent multiple rapid changes
                 SystemParametersInfo(SPI_SETCURSORS, 0, NULL, 0);  // Restore original cursor
                 
                 shakeCount = 0;  // Reset shake counter
