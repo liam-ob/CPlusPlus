@@ -12,6 +12,15 @@
 g++ -static -std=c++17 ident.cpp -o ident_server -lwsock32 -lws2_32 -lpsapi -liphlpapi
 */
 
+// To use this, put this into a shell script and replace server_port and client_port with the desired port:
+/*
+# Create query string
+query="$server_port,$client_port"
+
+# Use telnet to query the ident server
+(echo "$query"; sleep 1) | telnet "$dest_ip" 113
+*/
+
 
 // tasklist /v /fo list
 
